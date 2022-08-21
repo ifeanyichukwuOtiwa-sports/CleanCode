@@ -1,4 +1,4 @@
-package io.gxstar.cleancode;
+package io.gxstar.cleancode.intro;
 
 import java.util.Arrays;
 

@@ -1,8 +1,11 @@
-package io.gxstar.cleancode;
+package io.gxstar.cleancode.intro;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
+
+import io.gxstar.cleancode.intro.GildedRose;
+import io.gxstar.cleancode.intro.Item;
 
 public class GildedRoseCBackstagePassesTest {
 	

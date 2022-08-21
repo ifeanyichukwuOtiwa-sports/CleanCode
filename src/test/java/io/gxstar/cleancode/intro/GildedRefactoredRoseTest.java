@@ -1,18 +1,25 @@
-package io.gxstar.cleancode;
+package io.gxstar.cleancode.intro;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-class GildedRefactoredRoseADefaultItemTest {
+import io.gxstar.cleancode.intro.GildedRose;
+import io.gxstar.cleancode.intro.Item;
 
-    public static final int NOT_EXPIRED_SELLIN = 15;
-    public static final int DEFAULT_QUALITY = 3;
+class GildedRefactoredRoseTest {
+
     public static final String DEFAULT_ITEM = "DEFAULT_ITEM";
-    public static final int EXPIRED_SELLIN = -1;
+    private static final String BACKSTAGE_NAME = "Backstage passes to a TAFKAL80ETC concert";
     private static final String AGED_BRIE_NAME = "Aged Brie";
+    public static final int NOT_EXPIRED_SELLIN = 15;
+    public static final int NOT_EXPIRED_SELLIN_LESS_THAN6 = 4;
+    public static final int DEFAULT_QUALITY = 3;
+    public static final int EXPIRED_SELLIN = -1;
     private static final int MAX_VALID_QUALITY = 50;
+    private static final int NOT_EXPIRED_SELLIN_ABOVE6 = 7;
+
 
     /**
      * Method to test the variation in quality of the item for the non expired
@@ -102,6 +109,48 @@ class GildedRefactoredRoseADefaultItemTest {
 
         assertItem(expectedItem, actualItem);
     }
+
+
+    @Test
+    void testUpdateQualityBackstagePasses1() {
+        GildedRose app = createGildedRoseWithOneItem(BACKSTAGE_NAME, NOT_EXPIRED_SELLIN, DEFAULT_QUALITY);
+        app.updateQuality();
+
+        final Item actual = app.items[0];
+        final Item expected = new Item(BACKSTAGE_NAME, NOT_EXPIRED_SELLIN - 1, DEFAULT_QUALITY + 1);
+
+        assertItem(expected, actual);
+    }
+
+    @Test
+    void testNonExpiredBackstagePasses_shouldIncreaseQualityBy2() {
+        GildedRose app = createGildedRoseWithOneItem(BACKSTAGE_NAME, NOT_EXPIRED_SELLIN_ABOVE6, DEFAULT_QUALITY);
+
+        final Item actual = app.items[0];
+        final Item expected = new Item(BACKSTAGE_NAME, NOT_EXPIRED_SELLIN_ABOVE6 - 1, DEFAULT_QUALITY + 2);
+
+        app.updateQuality();
+
+        assertItem(expected, actual);
+
+    }
+
+    @Test
+    public void testUpdateQualityBackstagePasses3() {
+
+        GildedRose app = createGildedRoseWithOneItem(BACKSTAGE_NAME, NOT_EXPIRED_SELLIN_LESS_THAN6, DEFAULT_QUALITY);
+        app.updateQuality();
+
+        final Item actualItem = app.items[0];
+        final Item expectedItem = new Item(BACKSTAGE_NAME, NOT_EXPIRED_SELLIN_LESS_THAN6 - 1, DEFAULT_QUALITY + 3);
+
+        assertEquals("Backstage passes to a TAFKAL80ETC concert",
+                app.items[0].name);
+        assertEquals(3, app.items[0].sellIn);
+        assertEquals(6, app.items[0].quality);
+    }
+
+
 
 
     private static GildedRose createGildedRoseWithOneItem(final String itemType, final int sellin, final int quality) {

@@ -1,4 +1,4 @@
-package io.gxstar.cleancode;
+package io.gxstar.cleancode.intro;
 
 /**
  * Created by @author Ifeanyichukwu Otiwa
@@ -8,6 +8,9 @@ package io.gxstar.cleancode;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
+
+import io.gxstar.cleancode.intro.GildedRose;
+import io.gxstar.cleancode.intro.Item;
 
 class GildedRoseADefaultItemTest {
     /**
